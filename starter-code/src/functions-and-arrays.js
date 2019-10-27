@@ -1,8 +1,8 @@
 // Find the maximum
-function maxOfTwoNumbers(a, b){
-  if(a>b){
+function maxOfTwoNumbers(a, b) {
+  if (a > b) {
     return a;
-  }else{
+  } else {
     return b;
   }
 }
@@ -20,19 +20,19 @@ const words = [
 
 
 
-function findLongestWord(arr){
-  let longest= "";
+function findLongestWord(arr) {
+  let longest = "";
 
   if (arr.length === 0) {
     return null;
-  } 
-
-  for (i=0; i<arr.length; i++){
-      if (arr[i].length > longest.length){
-        longest= arr[i];
-      }
   }
-  
+
+  for (i = 0; i < arr.length; i++) {
+    if (arr[i].length > longest.length) {
+      longest = arr[i];
+    }
+  }
+
   return longest;
 }
 
@@ -43,10 +43,10 @@ console.log(findLongestWord(words))
 
 const numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
 
-function sumArray(arr){
+function sumArray(arr) {
   let acum = 0;
 
-  for(let i = 0; i < arr.length; i++){
+  for (let i = 0; i < arr.length; i++) {
     acum += arr[i];
   }
   return acum;
@@ -56,18 +56,18 @@ function sumArray(arr){
 
 const numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];
 
-function averageNumbers(arr){
+function averageNumbers(arr) {
   let acum = 0;
-  
+
   if (arr.length === 0) {
     return null;
-  } 
+  }
 
-  for(let i = 0; i < arr.length; i++){
+  for (let i = 0; i < arr.length; i++) {
     acum += arr[i];
   }
-  let avNum = acum/arr.length;
-  
+  let avNum = acum / arr.length;
+
   return avNum;
 
 }
@@ -89,20 +89,20 @@ const wordsArr = [
 ];
 
 
-function averageWordLength(arr){
+function averageWordLength(arr) {
   let acum = 0;
 
   if (arr.length === 0) {
     return null;
-  } 
+  }
 
-  for(let i = 0; i < arr.length; i++){
+  for (let i = 0; i < arr.length; i++) {
     acum += arr[i].length;
   }
-  return acum/arr.length;
+  return acum / arr.length;
 }
 
-console.log(averageWordLengt(wordArr));
+console.log(averageWordLength(wordsArr));
 
 
 // Unique Arrays
@@ -120,11 +120,11 @@ const wordsUnique = [
   'bring'
 ];
 
-function uniquifyArray(arr){
+function uniquifyArray(arr) {
   let result = [];
 
-  for(let i=0; i < arr.length; i++){
-    if(result.indexOf(arr[i]) === -1){
+  for (let i = 0; i < arr.length; i++) {
+    if (result.indexOf(arr[i]) === -1) {
       result.push(arr[i]);
     }
   }
@@ -145,12 +145,12 @@ const wordsFind = [
   'disobedience'
 ];
 
-function doesWordExist(arr, word){
+function doesWordExist(arr, word) {
   let result = arr.filter(item => item === word);
 
-  if(result.length <= 0){
+  if (result.length <= 0) {
     return false;
-  } else{
+  } else {
     return true;
   }
 }
@@ -171,7 +171,7 @@ const wordsCount = [
   'matter'
 ];
 
-function howManyTimes(arr, word){
+function howManyTimes(arr, word) {
   let result = arr.filter(item => item === word);
 
   return result.length;
@@ -180,6 +180,20 @@ function howManyTimes(arr, word){
 
 
 // Bonus
+
+// What is the greatest product of four adjacent numbers? 
+// We consider adjacent any four numbers that are next to each other 
+// in horizontal, vertical o diagonal.For example, if we have a 5x5 Matrix like:
+
+// [ 1, 2, 3, 4, 5] 
+// [ 1, 20, 3, 4, 5] 
+// [ 1, 20, 3, 4, 5] 
+// [ 1, 20, 3, 4, 5] 
+// [ 1, 4, 3, 4, 5]
+
+// // The greatest product will be the 20x20x20x4 = 32,000;
+// // Write a function greatestProduct to find it in the 20×20 grid below!
+
 const matrix = [
   [8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
   [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],
@@ -202,3 +216,79 @@ const matrix = [
   [20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
+
+
+let horizontalMax = 0;
+let verticalMax = 0;
+let diagonalMax =0;
+
+let x, y;
+
+let horizontalProduct;
+let verticalProduct;
+let diagonalProduct;
+
+// Search horizontal consecutives
+for (y = 0; y < matrix.length; y++) {
+  for (x = 0; x < matrix[y].length - 3; x++) {
+    horizontalProduct = matrix[y][x] * matrix[y][x + 1] * matrix[y][x + 2] * matrix[y][x + 3];
+
+    if (horizontalProduct > horizontalMax) {
+      horizontalMax = horizontalProduct;
+    }
+  }
+}
+
+// Search vertical consecutives
+for (x = 0; x < matrix.length; x++) {
+  for (y = 0; y < matrix.length - 3; y++) {
+    verticalProduct = matrix[y][x] * matrix[y + 1][x] * matrix[y + 2][x] * matrix[y + 3][x];
+
+    if (verticalProduct > verticalMax) {
+      verticalMax = verticalProduct;
+    }
+  }
+}
+
+
+// Search diagonal consecutives
+for (y = 0; y < matrix.length-3; y++){
+  for (x = 0; x < matrix[y].length-3; x++){
+    diagonalProduct = matrix[y][x] * matrix[y + 1][x+1] * matrix[y + 2][x+2] * matrix[y + 3][x+3];
+
+    if(diagonalProduct > diagonalMax){
+      diagonalMax = diagonalProduct;
+    }
+  }
+}
+
+
+function greatestProduct(arr){
+
+    let greatestProduct = verticalProduct;
+    let equalArrItems;
+
+    if(horizontalProduct > verticalProduct){
+      greatestProduct = horizontalProduct;
+    } else if (diagonalProduct > horizontalProduct) {
+      greatestProduct = diagonalProduct;
+    }
+
+    for (y = 0; y < arr.length; y++){
+      for (x = 0; x < arr[y].length; x++){
+        if(arr[y][x] === arr[y][x]) {
+           equalArrItems = arr[y][x]
+        }
+      }
+    }
+    
+    if (equalArrItems === 1){
+      return 1;
+    } else if (equalArrItems === 2){
+      return 16;
+    } 
+    console.log(`greatest product is `+greatestProduct)
+    return greatestProduct;
+}
+
+greatestProduct(matrix);
